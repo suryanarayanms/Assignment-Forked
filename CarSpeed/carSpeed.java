@@ -7,13 +7,15 @@ import java.util.concurrent.TimeUnit;
 public class carSpeed {
     static int limit = 1800;
     public static double currentTime = 0.5;
+    public static double avg=0.0;
     public static void start() throws InterruptedException {
         LinkedList<Integer> speed = new LinkedList<>();
         for(int i=0; i<limit; i++) {
             speed.add(randomInt(10,150));
             System.out.println("Current Speed at "+currentTime+"s"+" is "+speed.get(i)+" miles/hr");
-            System.out.println("Average Speed at "+currentTime+"s"+" is "+avgSpeed(speed)+" miles/hr");
-            System.out.println("Distance covered after "+currentTime+"s"+" is "+distanceCovered(speed.get(i))+" miles");
+            avg = avgSpeed(speed);
+            System.out.println("Average Speed at "+currentTime+"s"+" is "+avg+" miles/hr");
+            System.out.println("Distance covered after "+currentTime+"s"+" is "+distanceCovered(avg)+" miles");
             System.out.println();
             currentTime+=0.5;
             //TimeUnit.MILLISECONDS.sleep(500);
@@ -47,9 +49,9 @@ public class carSpeed {
 //        return totalDistanceCovered;
 //    }
 
-    public static double distanceCovered(int speed) {
+    public static double distanceCovered(double avgSpeed) {
         double distanceCovered = 0;
-        double speedInSec = speed / 7200.0;
+        double speedInSec = avgSpeed / 7200.0;
         distanceCovered = speedInSec * currentTime;
         double totalDistanceCovered = 0;
         totalDistanceCovered += distanceCovered;
